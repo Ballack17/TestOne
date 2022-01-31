@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping ("/auth")
 public class ReferenceController {
 
-    private final String hostname = "http://213.108.211.138:8189/";
+    private final String hostname = "http://cutte.herokuapp.com";  //"http://213.108.211.138:8189/";
 
     private UserService userService;
 
