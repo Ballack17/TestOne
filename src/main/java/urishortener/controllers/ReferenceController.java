@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/auth")
 public class ReferenceController {
 
-    private final String hostname = "http://213.108.211.138:8189/"; //"http://cutte.herokuapp.com";
+    private final String hostname = "http://cutte.herokuapp.com"; //"http://213.108.211.138:8189/"; //"http://cutte.herokuapp.com";
     private UserService userService;
 
     @Autowired
@@ -38,7 +38,7 @@ public class ReferenceController {
     public ModelAndView reference(Model model, Principal principal) {
         List<ReferenceNew> referenceNewList = referenceRepository.findAllByIdUser(userService.findByUsername(principal.getName()));
         model.addAttribute("text", "те самые ссылки");
-        model.addAttribute("textHost", hostname + "short");
+        model.addAttribute("textHost", hostname);
         model.addAttribute("referenceNewList", referenceNewList);
         return new ModelAndView("reference");
     }
