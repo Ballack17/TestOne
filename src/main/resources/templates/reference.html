@@ -59,7 +59,7 @@
 </div>
 <p>
     <input type="text" id="referenceUser" placeholder="referenceUser">
-    <input type="text" id="lifetime" placeholder="TimeBounded? Days...">
+    <input type="number" id="lifetime" placeholder="TimeBounded? Days...">
     <button onclick="sendJSON();">Создать коротыша!</button>
 <p class="result" style="color:blue"></p>
 </p>
@@ -75,23 +75,23 @@
         <thead class="thead-dark">
         <tr>
             <th>До какого времени</th>
-            <th>Длинная</th>
             <th>Короткая</th>
             <th>Использовали</th>
             <th>Уникальные входы</th>
-            <th></th>
+            <th>Длинная</th>
+<!--            <th></th>-->
         </tr>
         </thead>
         <tbody>
         <tr th:each="referenceNew,iterStat : ${referenceNewList}">
             <td th:text="${referenceNew.lifetime}"/>
-            <td th:text="${referenceNew.referenceUser}"/>
             <td th:text="${textHost} + ${referenceNew.referenceShort}"/>
             <td th:text="${referenceNew.wasUsed}"/>
             <td th:text="${referenceNew.uniqueUsed}"/>
-            <td>
-                <a onclick="sendDelJSON();" class="btn btn-primary">По идее - кнопка для удаления</a>
-            </td>
+            <td th:text="${referenceNew.referenceUser}"/>
+<!--            <td>-->
+<!--                <a onclick="sendDelJSON();" class="btn btn-primary">По идее - кнопка для удаления</a>-->
+<!--            </td>-->
         </tr>
         </tbody>
     </table>

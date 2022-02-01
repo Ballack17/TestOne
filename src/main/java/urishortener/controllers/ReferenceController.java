@@ -15,12 +15,11 @@ import java.net.UnknownHostException;
 import java.security.Principal;
 import java.util.List;
 
-
 @RestController("api/v1/reference")
 @RequestMapping("/auth")
 public class ReferenceController {
 
-    private final String hostname = "http://cutte.herokuapp.com"; //"http://213.108.211.138:8189/"; //"http://cutte.herokuapp.com";
+    private final String hostname = "http://213.108.211.138:8189/";
     private UserService userService;
 
     @Autowired
@@ -44,7 +43,7 @@ public class ReferenceController {
     }
 
     @GetMapping("/admin")
-    public ModelAndView reference1(Model model, Principal principal) {
+    public ModelAndView referenceAdm(Model model, Principal principal) {
         List<ReferenceNew> referenceNewList = referenceRepository.findAll();
         model.addAttribute("text", "ссылки всех");
         model.addAttribute("referenceNewList", referenceNewList);
@@ -53,13 +52,17 @@ public class ReferenceController {
 
     @PostMapping("/create")
     public ModelAndView reference_created(Model model, @RequestBody SystemReferenceCreating systemReferenceCreating, Principal principal) throws UnknownHostException {
-        System.out.println(systemReferenceCreating.toString());
-        ReferenceNew referenceNew = new ReferenceNew(systemReferenceCreating.getReferenceUser(), userService.findByUsername(principal.getName()), systemReferenceCreating.getLifetime());
-        referenceNew.setReferenceShort(referenceNew.GenerationShortReference());
-        referenceRepository.save(referenceNew);
-        model.addAttribute("text", hostname + referenceNew.getReferenceShort());
-        System.out.println(userService.findIdByUsername(principal.getName()));
-        return new ModelAndView("reference_created");
+        if (!(systemReferenceCreating.getReferenceUser().contains("http://") || systemReferenceCreating.getReferenceUser().contains("https://"))) {
+            model.addAttribute("text", "is it correct Link, bad boy?");
+        return new ModelAndView("oops");
+        } else {
+            ReferenceNew referenceNew = new ReferenceNew(systemReferenceCreating.getReferenceUser(), userService.findByUsername(principal.getName()), systemReferenceCreating.getLifetime());
+            referenceNew.setReferenceShort(referenceNew.GenerationShortReference());
+            referenceRepository.save(referenceNew);
+            model.addAttribute("text", hostname + referenceNew.getReferenceShort());
+            System.out.println(userService.findIdByUsername(principal.getName()));
+            return new ModelAndView("reference_created");
+        }
     }
 
     @DeleteMapping("/delete")
