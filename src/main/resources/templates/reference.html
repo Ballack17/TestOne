@@ -86,7 +86,7 @@
         <tr th:each="referenceNew,iterStat : ${referenceNewList}">
             <td th:text="${referenceNew.lifetime}"/>
             <td th:text="${referenceNew.referenceUser}"/>
-            <td th:text="${referenceNew.referenceShort}"/>
+            <td th:text="${textHost} + ${referenceNew.referenceShort}"/>
             <td th:text="${referenceNew.wasUsed}"/>
             <td th:text="${referenceNew.uniqueUsed}"/>
             <td>

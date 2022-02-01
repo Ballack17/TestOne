@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-
 public class SystemUser {
     @NotNull
     private String username;

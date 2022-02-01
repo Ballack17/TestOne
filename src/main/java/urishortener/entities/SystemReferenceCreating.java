@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-
 public class SystemReferenceCreating {
     @NotNull
     private String referenceUser;
