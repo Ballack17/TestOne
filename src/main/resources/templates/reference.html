@@ -8,81 +8,48 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
     <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}"/>
-
-
-
-
-    <title>
-        Отправляем JSON-данные на сервер
-    </title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-    <!-- скрипт, который обработает нажатие на кнопку и отправит данные на сервер -->
 <script>
 
-
-
-
-     // эта функция сработает при нажатии на кнопку
   function sendJSON() {
-    // с помощью jQuery обращаемся к элементам на странице по их именам
     let referenceUser = document.querySelector('#referenceUser');
-<!--    let idUser = document.querySelector('#idUser');-->
     let lifetime = document.querySelector('#lifetime');
-    // а вот сюда мы поместим ответ от сервера
     let result = document.querySelector('.result');
-    // создаём новый экземпляр запроса XHR
     let xhr = new XMLHttpRequest();
-    // адрес, куда мы отправим нашу JSON-строку
     let url = "/auth/create";
-    // открываем соединение
     xhr.open("POST", url, true);
-    // устанавливаем заголовок — выбираем тип контента, который отправится на сервер, в нашем случае мы явно пишем, что это JSON
     xhr.setRequestHeader("Content-Type", "application/json");
-    // когда придёт ответ на наше обращение к серверу, мы его обработаем здесь
     xhr.onreadystatechange = function () {
-      // если запрос принят и сервер ответил, что всё в порядке
       if (xhr.readyState === 4 && xhr.status === 200) {
-        // выводим то, что ответил нам сервер — так мы убедимся, что данные он получил правильно
-
         setTimeout(function(){location.reload();},2000);
         result.innerHTML = this.responseText;
       }
     };
-    // преобразуем наши данные JSON в строку
-<!--    var Data = JSON.stringify({ "referenceUser": referenceUser.value, "lifetime": lifetime.value, "idUser":{ "id": idUser.value}});-->
     var Data = JSON.stringify({ "referenceUser": referenceUser.value, "lifetime": lifetime.value, "idUser":{ "id": 4}});
-    // когда всё готово, отправляем JSON на сервер
     xhr.send(Data);
-    alert (Data);
   }
 </script>
-
-    <script>
+   <script>
           function sendDelJSON() {
   let rs = document.querySelector('#referenceShort');
   let xhr = new XMLHttpRequest();
     let url = "/auth/delete";
     xhr.open("DELETE", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
       if (xhr.readyState === 4 && xhr.status === 200) {
-        setTimeout(function(){location.reload();},2000);
-<!--        result.innerHTML = this.responseText;-->
+        setTimeout(function(){location.reload();},3000);
         }
     };
     var Data1 = JSON.stringify({ "referenceShort": rs.value});
     xhr.send(Data1);
     alert (Data1);
   }
-
-    </script>
+  </script>
 
 </head>
 <body style="text-align:center;" id="body">
-<!-- заголовок -->
 <h1 style="font-size:26px;"> Тот случай, когда меньше - лучше </h1>
 <div sec:authorize="isAuthenticated()">
     Authenticated username:
@@ -90,26 +57,18 @@
     Authenticated user roles:
     <div sec:authentication="principal.authorities"></div>
 </div>
-<!-- делаем форму с полями ввода -->
 <p>
     <input type="text" id="referenceUser" placeholder="referenceUser">
-<!--    <input type="text" id="idUser" placeholder="idUser">-->
     <input type="text" id="lifetime" placeholder="TimeBounded? Days...">
-
-    <!-- по нажатию на эту кнопку данные уйдут на сервер -->
     <button onclick="sendJSON();">Создать коротыша!</button>
-    <!-- а вот тут они появятся снова, но уже после обработки сервером -->
 <p class="result" style="color:blue"></p>
 </p>
-
 <div class="container">
     <h1 style="font-size:20px;">Ваши ссылки</h1>
-    <h1 style="font-size:20px;">Для перехода по короткой ссылке добавляем адрес домена  </h1>
+    <h1 style="font-size:20px;">Для перехода по короткой ссылке добавляем адрес домена, ниже пример  </h1>
     <h2 style="font-size:20px;" th:text="${textHost}"> </h2>
 <p>
     <input type="text" id="referenceShort" placeholder="shortly one for delete">
-
-    <!-- по нажатию на эту кнопку данные уйдут на сервер -->
     <button onclick="sendDelJSON();">Удалить</button>
 </p>
     <table class="table table-hover">
@@ -124,22 +83,18 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="reference1,iterStat : ${reference1List}">
-<!--            <td th:text="${iterStat.index}"/>-->
-            <td th:text="${reference1.lifetime}"/>
-            <td th:text="${reference1.referenceUser}"/>
-            <td th:text="${reference1.referenceShort}"/>
-            <td th:text="${reference1.wasUsed}"/>
-            <td th:text="${reference1.uniqueUsed}"/>
+        <tr th:each="referenceNew,iterStat : ${referenceNewList}">
+            <td th:text="${referenceNew.lifetime}"/>
+            <td th:text="${referenceNew.referenceUser}"/>
+            <td th:text="${referenceNew.referenceShort}"/>
+            <td th:text="${referenceNew.wasUsed}"/>
+            <td th:text="${referenceNew.uniqueUsed}"/>
             <td>
                 <a onclick="sendDelJSON();" class="btn btn-primary">По идее - кнопка для удаления</a>
             </td>
         </tr>
         </tbody>
     </table>
-
-
-
-
+    </div>
 </body>
 </html>

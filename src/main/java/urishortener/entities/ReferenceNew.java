@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Table(name = "references1")
-public class Reference1 {
+@Table(name = "references_new")
+public class ReferenceNew {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,22 +42,10 @@ public class Reference1 {
     @Column (name = "time_bounded")
     private boolean timeBounded;
 
-    public Reference1() {
+    public ReferenceNew() {
     }
 
-    public Long getUniqueUsed() {
-        return uniqueUsed;
-    }
-
-    public void setUniqueUsed(Long uniqueUsed) {
-        this.uniqueUsed = uniqueUsed;
-    }
-
-    public void wasUniqueUsed() {
-        this.uniqueUsed += 1L;
-    }
-
-    public Reference1(String referenceUser, User idUser, int lifetime) {
+    public ReferenceNew(String referenceUser, User idUser, int lifetime) {
         this.referenceUser = referenceUser;
         this.idUser = idUser;
         if (lifetime>0) {this.lifetime = LocalDateTime.now().plusDays(lifetime);}
@@ -66,64 +54,12 @@ public class Reference1 {
         this.timeBounded = (lifetime>0);
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getReferenceUser() {
-        return referenceUser;
-    }
-
-    public void setReferenceUser(String referenceUser) {
-        this.referenceUser = referenceUser;
-    }
-
-    public String getReferenceShort() {
-        return referenceShort;
-    }
-
-    public void setReferenceShort(String referenceShort) {
-        this.referenceShort = referenceShort;
-    }
-
-    public void setLifetime(LocalDateTime lifetime) {
-        this.lifetime = lifetime;
-    }
-
-    public Long getWasUsed() {
-        return this.wasUsed;
-    }
-
-    public void setWasUsed(Long wasUsed) {
-        this.wasUsed = wasUsed;
+    public void wasUniqueUsed() {
+        this.uniqueUsed += 1L;
     }
 
     public void wasUsed() {
         this.wasUsed +=1L;
-    }
-
-    public User getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getLifetime() {
-        return lifetime;
     }
 
     public void setLifetime(int lifetime) {
@@ -145,14 +81,6 @@ public class Reference1 {
         } else {
             return this.getLifetime();
         }
-    }
-
-    public boolean isTimeBounded() {
-        return timeBounded;
-    }
-
-    public void setTimeBounded(boolean timeBounded) {
-        this.timeBounded = timeBounded;
     }
 
     public boolean readyToDie() {

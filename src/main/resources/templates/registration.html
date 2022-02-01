@@ -7,60 +7,33 @@
         Отправляем JSON-данные на сервер
     </title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-    <!-- скрипт, который обработает нажатие на кнопку и отправит данные на сервер -->
     <script>
-
-
-
-     // эта функция сработает при нажатии на кнопку
   function sendJSON() {
-    // с помощью jQuery обращаемся к элементам на странице по их именам
     let username = document.querySelector('#username');
     let password = document.querySelector('#password');
     let matchingPassword = document.querySelector('#matchingPassword');
-    // а вот сюда мы поместим ответ от сервера
     let result = document.querySelector('.result');
-    // создаём новый экземпляр запроса XHR
     let xhr = new XMLHttpRequest();
-    // адрес, куда мы отправим нашу JSON-строку
     let url = "/reg/createUser";
-    // открываем соединение
     xhr.open("POST", url, true);
-    // устанавливаем заголовок — выбираем тип контента, который отправится на сервер, в нашем случае мы явно пишем, что это JSON
     xhr.setRequestHeader("Content-Type", "application/json");
-    // когда придёт ответ на наше обращение к серверу, мы его обработаем здесь
     xhr.onreadystatechange = function () {
-      // если запрос принят и сервер ответил, что всё в порядке
       if (xhr.readyState === 4 && xhr.status === 200) {
-        // выводим то, что ответил нам сервер — так мы убедимся, что данные он получил правильно
       result.innerHTML = this.responseText
       }
     };
-    // преобразуем наши данные JSON в строку
-<!--    var Data = JSON.stringify({ "referenceUser": referenceUser.value, "lifetime": lifetime.value, "idUser":{ "id": idUser.value}});-->
     var Data = JSON.stringify({ "username": username.value, "password": password.value, "matchingPassword": matchingPassword.value});
-    // когда всё готово, отправляем JSON на сервер
     xhr.send(Data);
-    alert (Data);
   }
 </script>
-
-
 </head>
 <body style="text-align:center;" id="body">
-<!-- заголовок -->
 <h1> Зарегистрируйся для обладания мощью уменьшения! </h1>
-<!-- делаем форму с полями ввода -->
 <p>
     <input type="text" id="username" placeholder="enter your login">
-    <!--    <input type="text" id="idUser" placeholder="idUser">-->
     <input type="text" id="password" placeholder="enter your password">
     <input type="text" id="matchingPassword" placeholder="password once more">
-
-    <!-- по нажатию на эту кнопку данные уйдут на сервер -->
     <button onclick="sendJSON();">Registration</button>
-    <!-- а вот тут они появятся снова, но уже после обработки сервером -->
 <p class="result" style="color:blue"></p>
     <h2 th:text="${text}"></h2>
 

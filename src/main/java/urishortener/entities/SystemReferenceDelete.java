@@ -6,15 +6,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-
-public class SystemUser {
-    @NotNull
-    private String username;
+public class SystemReferenceDelete {
 
     @NotNull
-    private String password;
-
-    @NotNull
-    private String matchingPassword;
+    private String referenceShort;
 
 }
+

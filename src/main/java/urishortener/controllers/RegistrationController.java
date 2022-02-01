@@ -1,21 +1,17 @@
-package urishortener.controller;
+package urishortener.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import urishortener.entities.Reference1;
 import urishortener.entities.SystemUser;
-import urishortener.repositories.UserRepository;
 import urishortener.services.UserService;
 
 import javax.transaction.Transactional;
-import java.net.UnknownHostException;
-import java.security.Principal;
 
-@RestController ("api/v1/registration")
-@RequestMapping ("/reg")
+@RestController("api/v1/registration")
+@RequestMapping("/reg")
 public class RegistrationController {
 
     private UserService userService;
@@ -25,6 +21,7 @@ public class RegistrationController {
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
+
     @Autowired
     public void setPasswordEncoder(BCryptPasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
@@ -47,11 +44,11 @@ public class RegistrationController {
         } else {
             userService.createUser(systemUser.getUsername(), passwordEncoder.encode(systemUser.getPassword()));
         }
-        model.addAttribute("textAllCool","Приветствую, новый владыка мощи уменьшателя!");
-        model.addAttribute("textLogin","Login = " + systemUser.getUsername());
-        model.addAttribute("textPass","Password = " + systemUser.getPassword());
-        return new ModelAndView ("login");
-        }
+        model.addAttribute("textAllCool", "Приветствую, новый владыка мощи уменьшателя!");
+        model.addAttribute("textLogin", "Login = " + systemUser.getUsername());
+        model.addAttribute("textPass", "Password = " + systemUser.getPassword());
+        return new ModelAndView("login");
+    }
 
 }
 

@@ -24,27 +24,7 @@ public class Role {
         this.name = roleName;
     }
 
-//    @Override
-//    public String toString() {
-//        return "RoleName{" +
-//                "id=" + id +
-//                ", roleName='" + roleName + '\'' +
-//                '}';
-//    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getRoleName() {
         return name;
-    }
-
-    public void setRoleName(String roleName) {
-        this.name = roleName;
     }
 }

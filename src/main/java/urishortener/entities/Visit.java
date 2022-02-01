@@ -22,7 +22,7 @@ public class Visit {
 
     @ManyToOne
     @JoinColumn(name = "reference_id")
-    private Reference1 reference1;
+    private ReferenceNew referenceNew;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -31,40 +31,9 @@ public class Visit {
     public Visit() {
     }
 
-    public Visit(String visitIp, Reference1 reference1) {
+    public Visit(String visitIp, ReferenceNew referenceNew) {
         this.visitIp = visitIp;
-        this.reference1 = reference1;
+        this.referenceNew = referenceNew;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getVisitIp() {
-        return visitIp;
-    }
-
-    public void setVisitIp(String visitIp) {
-        this.visitIp = visitIp;
-    }
-
-    public Reference1 getReference() {
-        return reference1;
-    }
-
-    public void setReference(Reference1 reference) {
-        this.reference1 = reference;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 }
