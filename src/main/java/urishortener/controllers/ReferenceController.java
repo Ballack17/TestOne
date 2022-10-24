@@ -1,6 +1,7 @@
 package urishortener.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,7 +16,7 @@ import java.net.UnknownHostException;
 import java.security.Principal;
 import java.util.List;
 
-@RestController("api/v1/reference")
+@Controller("api/v1/reference")
 @RequestMapping("/auth")
 public class ReferenceController {
 
